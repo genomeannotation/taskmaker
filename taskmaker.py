@@ -32,19 +32,20 @@ def main():
 
     command = input("What command do you want to run?: ")
 
+    job_file_path = input("Where do you want this job file to go?: ")
+
     # Output script
-    outfile = sys.stdout
-    
-    outfile.write("#!/bin/sh\n")
-    outfile.write("#$-N %s\n" % name)
-    outfile.write("#$-S %s\n" % shell)
-    if use_env:
-        outfile.write("#$-V\n")
-    if use_cwd:
-        outfile.write("#$-cwd\n")
-    outfile.write("#$-o %s\n" % out)
-    outfile.write("#$-q %s\n" % queue)
-    outfile.write(command+"\n")
+    with open(job_file_path, "w") as outfile:
+        outfile.write("#!/bin/sh\n")
+        outfile.write("#$-N %s\n" % name)
+        outfile.write("#$-S %s\n" % shell)
+        if use_env:
+            outfile.write("#$-V\n")
+        if use_cwd:
+            outfile.write("#$-cwd\n")
+        outfile.write("#$-o %s\n" % out)
+        outfile.write("#$-q %s\n" % queue)
+        outfile.write(command+"\n")
 
 ####################################
 
